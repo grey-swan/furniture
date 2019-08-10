@@ -12,4 +12,5 @@ router.register(r'user_role', views.UserRoleViewSet)
 app_name = 'profiles'
 urlpatterns = [
     path(r'', include(router.urls)),
+    path('', views.AdminIndex.as_view(), name='admin_index'),
 ]
