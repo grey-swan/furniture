@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.conf import settings
 from django.urls import path, include
+from profiles.views import AdminIndex
 
 urlpatterns = [
     path('api/profiles/', include('profiles.urls', namespace='prof')),
     path('api/product/', include('product.urls', namespace='prod')),
+    path('', AdminIndex.as_view(), name='admin_index'),
 ]
 
 
