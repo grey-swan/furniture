@@ -1,0 +1,19 @@
+# Add any directories, files, or patterns you don't want to be tracked by version control
+
+# Mac
+.DS_Store
+.idea
+*.swp
+db.sqlite3
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+# pyls
+.ropeproject
+celerybeat-schedule*
+furniture/local_settings.py
+profiles/migrations/
+log/
+static/
+media/
