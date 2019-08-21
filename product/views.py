@@ -17,7 +17,9 @@ from django.db.models import Sum, Avg
 from django_filters import rest_framework as filters
 
 from .serializer import *
+from .utils import upload_qn, upload_cos
 from . import mviewsets
+from profiles import AuthLogin
 from profiles.views import LargePageNumberPagination, SmallPageNumberPagination
 
 
@@ -25,78 +27,125 @@ class CategoryViewSet(mviewsets.MyModelViewSet):
     collection_name = 'category'
     serializer_class = CategorySerializer
     pagination_class = LargePageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class StyleViewSet(mviewsets.MyModelViewSet):
     collection_name = 'style'
     serializer_class = StyleSerializer
     pagination_class = LargePageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class FurnitureViewSet(mviewsets.MyModelViewSet):
     collection_name = 'furniture'
     serializer_class = FurnitureSerializer
     pagination_class = SmallPageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class CaseViewSet(mviewsets.MyModelViewSet):
     collection_name = 'case'
     serializer_class = CaseSerializer
     pagination_class = SmallPageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class SoftViewSet(mviewsets.MyModelViewSet):
     collection_name = 'soft'
     serializer_class = SoftSerializer
     pagination_class = SmallPageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class DesignerViewSet(mviewsets.MyModelViewSet):
     collection_name = 'designer'
     serializer_class = DesignerSerializer
     pagination_class = SmallPageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class CompanyViewSet(mviewsets.MyModelViewSet):
     collection_name = 'company'
     serializer_class = CompanySerializer
     pagination_class = SmallPageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class BannerViewSet(mviewsets.MyModelViewSet):
     collection_name = 'banner'
     serializer_class = BannerSerializer
     pagination_class = SmallPageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class OrderViewSet(mviewsets.MyModelViewSet):
     collection_name = 'order'
     serializer_class = OrderSerializer
     pagination_class = SmallPageNumberPagination
+    authentication_classes = (AuthLogin,)
 
 
 class ImgUpload(views.APIView):
     """图片上传"""
+    authentication_classes = (AuthLogin,)
+
+    # def post(self, request):
+    #     result = {'errno': 1, 'data': []}
+    #
+    #     file_items = request.FILES.lists()
+    #     # 上传文件
+    #     if file_items:
+    #         for file_item in file_items:
+    #
+    #             file_name, item = file_item
+    #             prefix = file_name[file_name.rfind('.'):]  # 后缀
+    #             filename = ''.join([uuid.uuid1().hex, prefix])
+    #
+    #             save_path = '%s/%s' % (settings.MEDIA_ROOT, filename)
+    #             resp_path = '%s/media/img/%s' % (settings.DOMAIN, filename)
+    #             with open(save_path, 'wb') as f:
+    #                 for chunk in item[0].chunks():
+    #                     f.write(chunk)
+    #
+    #             result['data'].append(resp_path)
+    #
+    #         result['errno'] = 0
+    #
+    #     return JsonResponse(result)
+
+    # def post(self, request):
+    #     result = {'errno': 1, 'data': []}
+    #
+    #     file_items = self.request.FILES.lists()
+    #     # 上传文件
+    #     if file_items:
+    #         for file_item in file_items:
+    #             file_name, item = file_item
+    #
+    #             data = b''.join([chunk for chunk in item[0].chunks()])
+    #             img_url = upload_qn(data)
+    #             result['data'].append(img_url)
+    #
+    #         result['errno'] = 0
+    #
+    #     return JsonResponse(result)
 
     def post(self, request):
         result = {'errno': 1, 'data': []}
 
-        file_items = request.FILES.lists()
+        file_items = self.request.FILES.lists()
         # 上传文件
         if file_items:
             for file_item in file_items:
+                item = file_item[1]
+                file_name = item[0].name
 
-                file_name, item = file_item
                 prefix = file_name[file_name.rfind('.'):]  # 后缀
                 filename = ''.join([uuid.uuid1().hex, prefix])
-
-                save_path = '%s/%s' % (settings.MEDIA_ROOT, filename)
-                resp_path = '%s/media/img/%s' % (settings.DOMAIN, filename)
-                with open(save_path, 'wb') as f:
-                    for chunk in item[0].chunks():
-                        f.write(chunk)
-
-                result['data'].append(resp_path)
+                data = b''.join([chunk for chunk in item[0].chunks()])
+                img_url = upload_cos(filename, data)
+                result['data'].append(img_url)
 
             result['errno'] = 0
 

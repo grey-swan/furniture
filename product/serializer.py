@@ -115,7 +115,7 @@ class BannerSerializer(MyBaseSerializer):
 class OrderSerializer(MyBaseSerializer):
     """订单"""
 
-    status_list = ((0, '未付款'), (1, '已完成'), (2, '已取消'))
+    status_list = ((0, '未处理'), (1, '已处理'), (2, '已取消'))
     type_list = ((0, '全屋软装搭配-设计'), (1, '获取报价-家具'), (2, '我想这样搭-案例'), (3, '预约设计师-设计师'))
 
     order_id = serializers.CharField(max_length=64)  # 订单id
@@ -125,7 +125,7 @@ class OrderSerializer(MyBaseSerializer):
     name = serializers.CharField(max_length=16)  # 用户姓名
     phone = serializers.CharField(max_length=32)  # 用户电话
     address = serializers.CharField(max_length=64)  # 用户地址
-    style = serializers.CharField(max_length=32)  # 风格
+    style = serializers.CharField(max_length=64, required=False)  # 风格
 
     user_id = serializers.CharField(max_length=64)  # 用户id
     updated = serializers.CharField(max_length=19)  # 更新时间
