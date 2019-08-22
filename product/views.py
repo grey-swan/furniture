@@ -114,23 +114,6 @@ class ImgUpload(views.APIView):
     #
     #     return JsonResponse(result)
 
-    # def post(self, request):
-    #     result = {'errno': 1, 'data': []}
-    #
-    #     file_items = self.request.FILES.lists()
-    #     # 上传文件
-    #     if file_items:
-    #         for file_item in file_items:
-    #             file_name, item = file_item
-    #
-    #             data = b''.join([chunk for chunk in item[0].chunks()])
-    #             img_url = upload_qn(data)
-    #             result['data'].append(img_url)
-    #
-    #         result['errno'] = 0
-    #
-    #     return JsonResponse(result)
-
     def post(self, request):
         result = {'errno': 1, 'data': []}
 
@@ -143,10 +126,31 @@ class ImgUpload(views.APIView):
 
                 prefix = file_name[file_name.rfind('.'):]  # 后缀
                 filename = ''.join([uuid.uuid1().hex, prefix])
+
                 data = b''.join([chunk for chunk in item[0].chunks()])
-                img_url = upload_cos(filename, data)
+                img_url = upload_qn(filename, data)
                 result['data'].append(img_url)
 
             result['errno'] = 0
 
         return JsonResponse(result)
+
+    # def post(self, request):
+    #     result = {'errno': 1, 'data': []}
+    #
+    #     file_items = self.request.FILES.lists()
+    #     # 上传文件
+    #     if file_items:
+    #         for file_item in file_items:
+    #             item = file_item[1]
+    #             file_name = item[0].name
+    #
+    #             prefix = file_name[file_name.rfind('.'):]  # 后缀
+    #             filename = ''.join([uuid.uuid1().hex, prefix])
+    #             data = b''.join([chunk for chunk in item[0].chunks()])
+    #             img_url = upload_cos(filename, data)
+    #             result['data'].append(img_url)
+    #
+    #         result['errno'] = 0
+    #
+    #     return JsonResponse(result)

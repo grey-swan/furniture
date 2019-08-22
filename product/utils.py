@@ -43,9 +43,10 @@ def db_query(query):
     return queryset
 
 
-def upload_qn(data):
+def upload_qn(filename, data):
     """
     上传七牛
+    :param filename:
     :param data:
     :return:
     """
@@ -53,14 +54,12 @@ def upload_qn(data):
     secret_key = settings.QINIU.get('SECRET_KEY')
     bucket_name = settings.QINIU.get('BUCKET_NAME')
 
-    filename = uuid.uuid1().hex
-
     q = Auth(access_key, secret_key)
     token = q.upload_token(bucket_name, filename)
     ret, info = put_data(token, filename, data)
 
     if ret['key'] == filename:
-        url = ''.join(['https://qiniu.laway.cn/', filename])
+        url = ''.join(['http://hyym.oocpo.com/', filename])
     else:
         url = ''
 
