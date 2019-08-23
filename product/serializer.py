@@ -105,11 +105,15 @@ class BannerSerializer(MyBaseSerializer):
 
     _id = serializers.CharField(max_length=64, required=False)
     cover = serializers.URLField()  # 广告展示图
-    position = serializers.ChoiceField(choices=position_list)  # 位置
-    type = serializers.ChoiceField(choices=type_list)  # 类别
     sort_order = serializers.IntegerField()  # 排序
-    product_id = serializers.CharField(max_length=64)  # 关联的对象，可以为家具和案例的ID
-    product_title = serializers.CharField(max_length=64)  # 产品
+    position = serializers.ChoiceField(choices=position_list)  # 位置
+
+    type = serializers.ChoiceField(choices=type_list, required=False, allow_blank=True)  # 类别
+    product_id = serializers.CharField(max_length=64, required=False, allow_blank=True)  # 关联的对象，可以为家具和案例的ID
+    product_title = serializers.CharField(max_length=64, required=False, allow_blank=True)  # 产品名称
+
+    style_id = serializers.CharField(max_length=64, required=False, allow_blank=True)  # 关联的风格对象
+    style_title = serializers.CharField(max_length=64, required=False, allow_blank=True)  # 风格名称
 
 
 class OrderSerializer(MyBaseSerializer):
