@@ -51,7 +51,7 @@ class FurnitureSerializer(MyBaseSerializer):
     updated = serializers.CharField(max_length=19, required=False)
     created = serializers.CharField(max_length=19, required=False, default=now().strftime('%Y-%m-%d %H:%M:%S'))
     category_id = serializers.CharField(max_length=64)  # 分类
-    style_id = serializers.CharField(max_length=64, allow_blank=True)  # 风格
+    style_id = serializers.ListField(max_length=16, required=False)  # 风格
 
 
 class CaseSerializer(MyBaseSerializer):
@@ -66,7 +66,7 @@ class CaseSerializer(MyBaseSerializer):
     content = serializers.CharField(max_length=10240)  # 内容
     updated = serializers.CharField(max_length=19, required=False)
     created = serializers.CharField(max_length=19, required=False, default=now().strftime('%Y-%m-%d %H:%M:%S'))
-    style_id = serializers.CharField(max_length=64, allow_blank=True)  # 风格
+    style_id = serializers.ListField(max_length=16, required=False)  # 风格
 
 
 class SoftSerializer(MyBaseSerializer):

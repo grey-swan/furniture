@@ -134,14 +134,6 @@ class UserRoleViewSet(mviewsets.MyEditScanModelViewSet):
         super(UserRoleViewSet, self).perform_update(serializer)
 
 
-class Index(views.APIView):
-
-    # @wechat_login_required('default')
-    def get(self, request):
-        """重定向到首页"""
-        return redirect('https://colawyer.laway.cn/api/community/content/')
-
-
 class AdminIndex(views.APIView):
 
     def get(self, request):
