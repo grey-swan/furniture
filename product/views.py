@@ -1,26 +1,13 @@
-import ujson as json
 import uuid
 
 from django.http import JsonResponse
-from django.conf import settings
-from rest_framework import views, viewsets
-from rest_framework.pagination import PageNumberPagination, OrderedDict
-from rest_framework.viewsets import mixins
-from rest_framework.exceptions import ValidationError
-from rest_framework.decorators import action
-from rest_framework.renderers import status
-from rest_framework.response import Response
-from rest_framework.authtoken.models import Token
-from rest_framework.authtoken.serializers import AuthTokenSerializer
-from django.http import HttpResponse
-from django.db.models import Sum, Avg
-from django_filters import rest_framework as filters
+from rest_framework import views
 
 from .serializer import *
-from .utils import upload_qn, upload_cos
+from .utils import upload_qn
 from . import mviewsets
 from profiles import AuthLogin
-from profiles.views import LargePageNumberPagination, SmallPageNumberPagination
+from profiles.views import LargePageNumberPagination
 
 
 class CategoryViewSet(mviewsets.MyModelViewSet):
@@ -40,49 +27,42 @@ class StyleViewSet(mviewsets.MyModelViewSet):
 class FurnitureViewSet(mviewsets.MyModelViewSet):
     collection_name = 'furniture'
     serializer_class = FurnitureSerializer
-    pagination_class = SmallPageNumberPagination
     authentication_classes = (AuthLogin,)
 
 
 class CaseViewSet(mviewsets.MyModelViewSet):
     collection_name = 'case'
     serializer_class = CaseSerializer
-    pagination_class = SmallPageNumberPagination
     authentication_classes = (AuthLogin,)
 
 
 class SoftViewSet(mviewsets.MyModelViewSet):
     collection_name = 'soft'
     serializer_class = SoftSerializer
-    pagination_class = SmallPageNumberPagination
     authentication_classes = (AuthLogin,)
 
 
 class DesignerViewSet(mviewsets.MyModelViewSet):
     collection_name = 'designer'
     serializer_class = DesignerSerializer
-    pagination_class = SmallPageNumberPagination
     authentication_classes = (AuthLogin,)
 
 
 class CompanyViewSet(mviewsets.MyModelViewSet):
     collection_name = 'company'
     serializer_class = CompanySerializer
-    pagination_class = SmallPageNumberPagination
     authentication_classes = (AuthLogin,)
 
 
 class BannerViewSet(mviewsets.MyModelViewSet):
     collection_name = 'banner'
     serializer_class = BannerSerializer
-    pagination_class = SmallPageNumberPagination
     authentication_classes = (AuthLogin,)
 
 
 class OrderViewSet(mviewsets.MyModelViewSet):
     collection_name = 'order'
     serializer_class = OrderSerializer
-    pagination_class = SmallPageNumberPagination
     authentication_classes = (AuthLogin,)
 
 

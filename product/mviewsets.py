@@ -2,6 +2,7 @@ import ujson as json
 
 from rest_framework.viewsets import GenericViewSet, mixins
 from rest_framework.renderers import status
+from rest_framework.response import Response
 
 from .utils import db_query
 
@@ -143,3 +144,20 @@ class MyModelViewSet(mixins.CreateModelMixin,
         pk = instance.get('_id', '')
         params = {'collection': self.collection_name, 'type': 'delete', '_id': pk}
         db_query(params)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset.get('data', []), many=True)
+
+        result = {
+            'data': serializer.data,
+            'next': None,
+            'previous': None,
+            'count': queryset.get('total', 0),
+            'num_pages': queryset.get('totalPage', 1),
+            'page': queryset.get('page', 1),
+            'per_page': queryset.get('pageSize', 16),
+        }
+
+        return Response(result)
+

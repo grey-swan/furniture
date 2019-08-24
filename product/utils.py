@@ -33,7 +33,7 @@ def db_query(query):
         resp = requests.post(url=url, json=query).json()
         if resp.get('errcode') == 0:
             queryset = json.loads(resp.get('resp_data', {}))
-            queryset = queryset.get('data', [])
+            # queryset = queryset.get('data', [])
         else:
             raise Exception(resp.get('errmsg', ''))
     except Exception as exc:
