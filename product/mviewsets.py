@@ -129,7 +129,7 @@ class MyModelViewSet(mixins.CreateModelMixin,
         params = {'collection': self.collection_name, 'type': 'doc', '_id': pk}
         obj = db_query(params)
 
-        return obj
+        return obj.get('data', {})
 
     def perform_create(self, serializer):
         params = {'collection': self.collection_name, 'type': 'add', 'data': dict(serializer.validated_data)}
