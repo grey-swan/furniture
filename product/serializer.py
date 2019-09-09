@@ -101,14 +101,16 @@ class BannerSerializer(MyBaseSerializer):
     """广告位"""
 
     position_list = ((0, '第一广告位'), (1, '第二广告位'))
+    link_list = ((0, '列表页'), (1, '详情页'))
     type_list = ((0, '家具'), (1, '案例'), (2, '设计师'))
 
     _id = serializers.CharField(max_length=64, required=False)
     cover = serializers.URLField()  # 广告展示图
     sort_order = serializers.IntegerField()  # 排序
     position = serializers.ChoiceField(choices=position_list)  # 位置
-
     type = serializers.ChoiceField(choices=type_list, required=False, allow_blank=True)  # 类别
+    link_type = serializers.ChoiceField(choices=link_list, required=False, allow_blank=True)  # 链接类型
+
     product_id = serializers.CharField(max_length=64, required=False, allow_blank=True)  # 关联的对象，可以为家具和案例的ID
     product_title = serializers.CharField(max_length=64, required=False, allow_blank=True)  # 产品名称
 
