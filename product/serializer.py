@@ -101,7 +101,7 @@ class BannerSerializer(MyBaseSerializer):
     """广告位"""
 
     position_list = ((0, '第一广告位'), (1, '第二广告位'))
-    link_list = ((0, '列表页'), (1, '详情页'))
+    link_list = ((0, '列表页'), (1, '详情页'), (2, '静态页'))
     type_list = ((0, '家具'), (1, '案例'), (2, '设计师'))
 
     _id = serializers.CharField(max_length=64, required=False)
