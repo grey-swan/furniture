@@ -47,7 +47,7 @@ class FurnitureSerializer(MyBaseSerializer):
     subtitle = serializers.CharField(max_length=128, allow_blank=True)  # 副标题
     img = serializers.ListField(max_length=7, required=False)  # 轮播图片
     price = serializers.IntegerField(required=False)  # 价格
-    content = serializers.CharField(max_length=10240)  # 内容
+    content = serializers.CharField(max_length=51200)  # 内容
     updated = serializers.CharField(max_length=19, required=False)
     created = serializers.CharField(max_length=19, required=False, default=now().strftime('%Y-%m-%d %H:%M:%S'))
     category_id = serializers.CharField(max_length=64)  # 分类
@@ -63,7 +63,7 @@ class CaseSerializer(MyBaseSerializer):
     img = serializers.ListField(max_length=1, required=False)  # 轮播图片
     building = serializers.CharField(max_length=32)  # 楼盘
     area = serializers.CharField(max_length=32)  # 面积
-    content = serializers.CharField(max_length=10240)  # 内容
+    content = serializers.CharField(max_length=51200)  # 内容
     updated = serializers.CharField(max_length=19, required=False)
     created = serializers.CharField(max_length=19, required=False, default=now().strftime('%Y-%m-%d %H:%M:%S'))
     style_id = serializers.ListField(max_length=16, required=False)  # 风格
@@ -73,7 +73,7 @@ class SoftSerializer(MyBaseSerializer):
     """全屋软装搭配"""
 
     _id = serializers.CharField(max_length=64, required=False)
-    content = serializers.CharField(max_length=10240)  # 内容
+    content = serializers.CharField(max_length=51200)  # 内容
     updated = serializers.CharField(max_length=19, required=False)
     created = serializers.CharField(max_length=19, required=False, default=now().strftime('%Y-%m-%d %H:%M:%S'))
 
@@ -85,14 +85,14 @@ class DesignerSerializer(MyBaseSerializer):
     title = serializers.CharField(max_length=16)
     avatar = serializers.URLField()
     position = serializers.CharField(max_length=16)
-    desc = serializers.CharField(max_length=10240)
+    desc = serializers.CharField(max_length=51200)
 
 
 class CompanySerializer(MyBaseSerializer):
     """公司介绍"""
 
     _id = serializers.CharField(max_length=64, required=False)
-    content = serializers.CharField(max_length=10240)  # 内容
+    content = serializers.CharField(max_length=51200)  # 内容
     updated = serializers.CharField(max_length=19, required=False)
     created = serializers.CharField(max_length=19, required=False, default=now().strftime('%Y-%m-%d %H:%M:%S'))
 
