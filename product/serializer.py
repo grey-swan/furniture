@@ -66,7 +66,7 @@ class CaseSerializer(MyBaseSerializer):
     content = serializers.CharField(max_length=51200)  # 内容
     updated = serializers.CharField(max_length=19, required=False)
     created = serializers.CharField(max_length=19, required=False, default=now().strftime('%Y-%m-%d %H:%M:%S'))
-    style_id = serializers.ListField(max_length=16, required=False)  # 风格
+    style_id = serializers.CharField(max_length=32, required=False)  # 风格
 
 
 class SoftSerializer(MyBaseSerializer):
