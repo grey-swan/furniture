@@ -80,7 +80,8 @@ class ImgUpload(views.APIView):
             for file_item in file_items:
 
                 file_name, item = file_item
-                prefix = file_name[file_name.rfind('.'):]  # 后缀
+                old_name = item[0].name
+                prefix = old_name[old_name.rfind('.'):]  # 后缀
                 filename = ''.join([uuid.uuid1().hex, prefix])
 
                 save_path = '%s/%s' % (settings.MEDIA_ROOT, filename)
