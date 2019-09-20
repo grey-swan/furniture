@@ -1,6 +1,7 @@
 import uuid
 
 from django.http import JsonResponse
+from django.conf import settings
 from rest_framework import views
 
 from .serializer import *
@@ -70,50 +71,50 @@ class ImgUpload(views.APIView):
     """图片上传"""
     authentication_classes = (AuthLogin,)
 
-    # def post(self, request):
-    #     result = {'errno': 1, 'data': []}
-    #
-    #     file_items = request.FILES.lists()
-    #     # 上传文件
-    #     if file_items:
-    #         for file_item in file_items:
-    #
-    #             file_name, item = file_item
-    #             prefix = file_name[file_name.rfind('.'):]  # 后缀
-    #             filename = ''.join([uuid.uuid1().hex, prefix])
-    #
-    #             save_path = '%s/%s' % (settings.MEDIA_ROOT, filename)
-    #             resp_path = '%s/media/img/%s' % (settings.DOMAIN, filename)
-    #             with open(save_path, 'wb') as f:
-    #                 for chunk in item[0].chunks():
-    #                     f.write(chunk)
-    #
-    #             result['data'].append(resp_path)
-    #
-    #         result['errno'] = 0
-    #
-    #     return JsonResponse(result)
-
     def post(self, request):
         result = {'errno': 1, 'data': []}
 
-        file_items = self.request.FILES.lists()
+        file_items = request.FILES.lists()
         # 上传文件
         if file_items:
             for file_item in file_items:
-                item = file_item[1]
-                file_name = item[0].name
 
+                file_name, item = file_item
                 prefix = file_name[file_name.rfind('.'):]  # 后缀
                 filename = ''.join([uuid.uuid1().hex, prefix])
 
-                data = b''.join([chunk for chunk in item[0].chunks()])
-                img_url = upload_qn(filename, data)
-                result['data'].append(img_url)
+                save_path = '%s/%s' % (settings.MEDIA_ROOT, filename)
+                resp_path = '%s/media/img/%s' % (settings.DOMAIN, filename)
+                with open(save_path, 'wb') as f:
+                    for chunk in item[0].chunks():
+                        f.write(chunk)
+
+                result['data'].append(resp_path)
 
             result['errno'] = 0
 
         return JsonResponse(result)
+
+    # def post(self, request):
+    #     result = {'errno': 1, 'data': []}
+    #
+    #     file_items = self.request.FILES.lists()
+    #     # 上传文件
+    #     if file_items:
+    #         for file_item in file_items:
+    #             item = file_item[1]
+    #             file_name = item[0].name
+    #
+    #             prefix = file_name[file_name.rfind('.'):]  # 后缀
+    #             filename = ''.join([uuid.uuid1().hex, prefix])
+    #
+    #             data = b''.join([chunk for chunk in item[0].chunks()])
+    #             img_url = upload_qn(filename, data)
+    #             result['data'].append(img_url)
+    #
+    #         result['errno'] = 0
+    #
+    #     return JsonResponse(result)
 
     # def post(self, request):
     #     result = {'errno': 1, 'data': []}
