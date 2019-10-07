@@ -46,6 +46,7 @@ class FurnitureSerializer(MyBaseSerializer):
     title = serializers.CharField(max_length=64)  # 标题
     subtitle = serializers.CharField(max_length=128, allow_blank=True)  # 副标题
     img = serializers.ListField(max_length=7, required=False)  # 轮播图片
+    sort_order = serializers.IntegerField()  # 排序
     price = serializers.IntegerField(required=False)  # 价格
     content = serializers.CharField(max_length=51200)  # 内容
     updated = serializers.CharField(max_length=19, required=False)
@@ -61,6 +62,7 @@ class CaseSerializer(MyBaseSerializer):
     title = serializers.CharField(max_length=64)  # 标题
     subtitle = serializers.CharField(max_length=128, allow_blank=True)  # 副标题
     img = serializers.ListField(max_length=1, required=False)  # 轮播图片
+    sort_order = serializers.IntegerField()  # 排序
     building = serializers.CharField(max_length=32)  # 楼盘
     area = serializers.CharField(max_length=32)  # 面积
     content = serializers.CharField(max_length=51200)  # 内容
