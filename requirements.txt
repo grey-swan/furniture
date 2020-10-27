@@ -8,7 +8,7 @@ certifi==2019.6.16
 cffi==1.12.3
 chardet==3.0.4
 cos-python-sdk-v5==1.7.3
-cryptography==2.7
+cryptography==3.2
 decorator==4.4.0
 dicttoxml==1.7.4
 Django==2.2.1
