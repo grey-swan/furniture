@@ -41,7 +41,7 @@ six==1.12.0
 sqlparse==0.3.0
 traitlets==4.3.2
 ujson==1.35
-urllib3==1.25.3
+urllib3==1.26.5
 vine==1.3.0
 wcwidth==0.1.7
 wechatpy==1.8.3
