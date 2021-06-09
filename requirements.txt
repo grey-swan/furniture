@@ -11,7 +11,7 @@ cos-python-sdk-v5==1.7.3
 cryptography==2.7
 decorator==4.4.0
 dicttoxml==1.7.4
-Django==2.2.1
+Django==2.2.22
 django-cors-headers==3.0.2
 django-filter==2.1.0
 django-redis==4.10.0
